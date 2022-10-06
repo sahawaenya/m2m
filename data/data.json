@@ -1,0 +1,110 @@
+{
+  "admins": [
+    {
+      "username": "superadmin",
+      "password": "password",
+      "phoneNumber": "0812345678",
+      "imgUrl": "",
+      "location": "",
+      "role": "superadmin"
+    },
+    {
+      "username": "admin",
+      "password": "password",
+      "phoneNumber": "0834545678",
+      "imgUrl": "https://awsimages.detik.net.id/community/media/visual/2020/12/14/keren-ada-museum-basket-lho-di-bogor-1_169.jpeg?w=700&q=90",
+      "location": "https://www.google.com/maps/place/Canton+Park/@-2.9424884,104.7596121,17z/data=!3m1!4b1!4m5!3m4!1s0x5450550b49261bf:0x24def06b4a9588be!8m2!3d-2.9424884!4d104.7618008",
+      "role": "admin"
+    }
+  ],
+  "categories": [
+    {
+      "name": "Football"
+    },
+    {
+      "name": "Basketball"
+    },
+    {
+      "name": "Tennis"
+    },
+    {
+      "name": "Badminton"
+    },
+    {
+      "name": "Muay Thai"
+    }
+  ],
+  "schedules": [
+    {
+      "AuthorId": 2,
+      "CategoryId": 2,
+      "name": "Lapangan Indoor Canton Park",
+      "startTime": "2004-10-19 10:23:54",
+      "endTime": "2004-10-19 10:23:54",
+      "price": 350000,
+      "status": 0,
+      "day": "Sunday"
+    },
+    {
+      "AuthorId": 2,
+      "CategoryId": 2,
+      "name": "Lapangan Outdoor Canton Park",
+      "startTime": "2004-10-19 10:23:54",
+      "endTime": "2004-10-19 10:23:54",
+      "price": 250000,
+      "status": 0,
+      "day": "Sunday"
+    }
+  ],
+  "users": [
+    {
+      "name": "Khansa",
+      "email": "khansa@gmail.com",
+      "password": "password",
+      "bio": "Saya suka bermain basket dan baseball",
+      "status": 1
+    },
+    {
+      "name": "Mirza",
+      "email": "mirza@gmail.com",
+      "password": "password",
+      "bio": "Saya suka bermain bola dan baseball",
+      "status": 1
+    },
+    {
+      "name": "Inez",
+      "email": "inez@gmail.com",
+      "password": "password",
+      "bio": "Saya suka bermain badminton dan muay thai",
+      "status": 1
+    }
+  ],
+  "events": [
+    {
+      "name": "Main basket hari minggu jam 7 malam",
+      "location": "Jakarta Selatan",
+      "date": "2004-10-19 10:23:54",
+      "CategoryId": 2,
+      "capacity": 10,
+      "currentCapacity": 3,
+      "status": 1
+    }
+  ],
+  "eventDetails": [
+    {
+      "EventId": 1,
+      "UserId": 1,
+      "role": "author"
+    },
+    {
+      "EventId": 1,
+      "UserId": 2,
+      "role": "member"
+    },
+    {
+      "EventId": 1,
+      "UserId": 3,
+      "role": "member"
+    }
+  ]
+}
