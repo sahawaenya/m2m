@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev" : "nodemon app.js",
+    "dev": "nodemon app.js",
     "start": "node app.js"
   },
   "repository": {
@@ -28,7 +28,9 @@
     "sequelize": "^6.24.0"
   },
   "devDependencies": {
+    "jest": "^29.1.2",
     "nodemon": "^2.0.20",
-    "sequelize-cli": "^6.5.1"
+    "sequelize-cli": "^6.5.1",
+    "supertest": "^6.3.0"
   }
 }
