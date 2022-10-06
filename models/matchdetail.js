@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      MatchDetail.belongsTo(models.Event, {foreignKey: 'MatchId'});
+      MatchDetail.belongsTo(models.Match, {foreignKey: 'MatchId'});
       MatchDetail.belongsTo(models.User, {foreignKey: 'UserId'});
     }
   }
