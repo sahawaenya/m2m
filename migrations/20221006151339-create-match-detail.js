@@ -2,18 +2,18 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('EventDetails', {
+    await queryInterface.createTable('MatchDetails', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      EventId: {
+      MatchId: {
         type: Sequelize.INTEGER,
         references: {
           model: {
-            tableName: 'Events'
+            tableName: 'Matches'
           },
           key: 'id'
         }
@@ -41,6 +41,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('EventDetails');
+    await queryInterface.dropTable('MatchDetails');
   }
 };

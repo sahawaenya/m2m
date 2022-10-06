@@ -79,7 +79,7 @@
       "status": 1
     }
   ],
-  "events": [
+  "matches": [
     {
       "name": "Main basket hari minggu jam 7 malam",
       "location": "Jakarta Selatan",
@@ -90,19 +90,19 @@
       "status": 1
     }
   ],
-  "eventDetails": [
+  "matchDetails": [
     {
-      "EventId": 1,
+      "MatchId": 1,
       "UserId": 1,
       "role": "author"
     },
     {
-      "EventId": 1,
+      "MatchId": 1,
       "UserId": 2,
       "role": "member"
     },
     {
-      "EventId": 1,
+      "MatchId": 1,
       "UserId": 3,
       "role": "member"
     }
