@@ -4,8 +4,8 @@
       "username": "superadmin",
       "password": "password",
       "phoneNumber": "0812345678",
-      "imgUrl": "",
-      "location": "",
+      "imgUrl": null,
+      "location": null,
       "role": "superadmin"
     },
     {
