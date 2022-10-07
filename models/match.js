@@ -11,8 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Match.belongsTo(models.Category, {foreignKey: 'CategoryId'});
       Match.hasMany(models.MatchDetail, {foreignKey: 'MatchId'});
+      Match.belongsTo(models.User, {foreignKey: 'UserId'});
+      Match.belongsTo(models.Field, {foreignKey: 'FieldId'});
+      Match.belongsTo(models.Category, {foreignKey: 'CategoryId'});
     }
   }
   Match.init({
@@ -22,7 +24,12 @@ module.exports = (sequelize, DataTypes) => {
     CategoryId: DataTypes.INTEGER,
     capacity: DataTypes.INTEGER,
     currentCapacity: DataTypes.INTEGER,
-    status: DataTypes.INTEGER
+    status: DataTypes.INTEGER,
+    duration: DataTypes.STRING,
+    type: DataTypes.INTEGER,
+    description: DataTypes.STRING,
+    UserId: DataTypes.INTEGER,
+    FieldId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Match',

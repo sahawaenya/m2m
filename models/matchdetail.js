@@ -11,14 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      MatchDetail.belongsTo(models.Match, {foreignKey: 'MatchId'});
       MatchDetail.belongsTo(models.User, {foreignKey: 'UserId'});
+      MatchDetail.belongsTo(models.Match, {foreignKey: 'MatchId'});
     }
   }
   MatchDetail.init({
     MatchId: DataTypes.INTEGER,
     UserId: DataTypes.INTEGER,
-    role: DataTypes.STRING
+    status: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'MatchDetail',

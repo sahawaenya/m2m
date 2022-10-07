@@ -1,8 +1,6 @@
 'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
-const {hashSync} = require('bcryptjs');
-
 module.exports = {
   async up (queryInterface, Sequelize) {
     /**
@@ -14,15 +12,15 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    const admins = require('../data/data.json').admins.map(admin => {
+    const matches = require('../data/data.json').matches.map(match => {
       return {
-        ...admin,
-        password: hashSync(admin.password, 10),
+        ...match,
         createdAt: new Date(),
         updatedAt: new Date()
-      }
+      };
     })
-    await queryInterface.bulkInsert('Admins', admins);
+
+    await queryInterface.bulkInsert('Matches', matches);
   },
 
   async down (queryInterface, Sequelize) {
@@ -32,6 +30,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete('Admins', null, {});
+    await queryInterface.bulkDelete('Matches', null, {});
   }
 };
