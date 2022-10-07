@@ -2,7 +2,6 @@
 
 /** @type {import('sequelize-cli').Migration} */
 const {hashSync} = require('bcryptjs');
-
 module.exports = {
   async up (queryInterface, Sequelize) {
     /**
@@ -22,6 +21,7 @@ module.exports = {
         updatedAt: new Date()
       }
     })
+
     await queryInterface.bulkInsert('Users', users);
   },
 

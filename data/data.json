@@ -1,25 +1,7 @@
 {
-  "admins": [
-    {
-      "username": "superadmin",
-      "password": "password",
-      "phoneNumber": "0812345678",
-      "imgUrl": null,
-      "location": null,
-      "role": "superadmin"
-    },
-    {
-      "username": "admin",
-      "password": "password",
-      "phoneNumber": "0834545678",
-      "imgUrl": "https://awsimages.detik.net.id/community/media/visual/2020/12/14/keren-ada-museum-basket-lho-di-bogor-1_169.jpeg?w=700&q=90",
-      "location": "https://www.google.com/maps/place/Canton+Park/@-2.9424884,104.7596121,17z/data=!3m1!4b1!4m5!3m4!1s0x5450550b49261bf:0x24def06b4a9588be!8m2!3d-2.9424884!4d104.7618008",
-      "role": "admin"
-    }
-  ],
   "categories": [
     {
-      "name": "Football"
+      "name": "Futsal"
     },
     {
       "name": "Basketball"
@@ -31,29 +13,37 @@
       "name": "Badminton"
     },
     {
-      "name": "Muay Thai"
-    }
-  ],
-  "schedules": [
-    {
-      "AuthorId": 2,
-      "CategoryId": 2,
-      "name": "Lapangan Indoor Canton Park",
-      "startTime": "2004-10-19 10:23:54",
-      "endTime": "2004-10-19 10:23:54",
-      "price": 350000,
-      "status": 0,
-      "day": "Sunday"
+      "name": "Martial Arts"
     },
     {
-      "AuthorId": 2,
-      "CategoryId": 2,
-      "name": "Lapangan Outdoor Canton Park",
-      "startTime": "2004-10-19 10:23:54",
-      "endTime": "2004-10-19 10:23:54",
-      "price": 250000,
-      "status": 0,
-      "day": "Sunday"
+      "name": "Jogging"
+    },
+    {
+      "name": "Volley"
+    }
+  ],
+  "fields": [
+    {
+      "phoneNumber": "081289304888",
+      "CategoryId": 1,
+      "name": "Maestro Futsal Kemayoran",
+      "openHour": "08:00",
+      "closeHour": "23:59",
+      "location": "Jalan Industri Blok C4 Kavling No. 2, Gn. Sahari Utara, Kecamatan Sawah Besar, Daerah Khusus Ibukota Jakarta 10720",
+      "image": "https://fastly.4sqi.net/img/general/width960/3264269_oVtIJFTcweJUG6P1gkhHYfyumzjLGahufirEFB8YtUA.jpg",
+      "price": 240000,
+      "status": 0
+    },
+    {
+      "phoneNumber": "085892501420",
+      "CategoryId": 1,
+      "name": "Kevin Cafe Futsal",
+      "openHour": "08:00",
+      "closeHour": "23:30",
+      "image": "https://fastly.4sqi.net/img/general/200x200/53865229_bvqO4kcuU2-AB0HM8Qko75bs9pDitgZwlxPYctOan2U.jpg",
+      "location": "Jl. Kramat II No.17, RT.1/RW.8, Kwitang, Kec. Senen, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10420",
+      "price": 240000,
+      "status": 0
     }
   ],
   "users": [
@@ -61,50 +51,52 @@
       "name": "Khansa",
       "email": "khansa@gmail.com",
       "password": "password",
-      "bio": "Saya suka bermain basket dan baseball",
-      "status": 1
+      "bio": "Saya suka bermain futsal dan saya adalah Manchunian"
     },
     {
       "name": "Mirza",
       "email": "mirza@gmail.com",
       "password": "password",
-      "bio": "Saya suka bermain bola dan baseball",
-      "status": 1
+      "bio": "Saya suka bermain futsal dan saya adalah Culés"
     },
     {
       "name": "Inez",
       "email": "inez@gmail.com",
       "password": "password",
-      "bio": "Saya suka bermain badminton dan muay thai",
-      "status": 1
+      "bio": "Hobi saya adalah bermain futsal dan martial arts"
     }
   ],
   "matches": [
     {
-      "name": "Main basket hari minggu jam 7 malam",
-      "location": "Jakarta Selatan",
-      "date": "2004-10-19 10:23:54",
-      "CategoryId": 2,
+      "name": "Pertandingan Silaturahmi Natalan",
+      "location": "Jakarta Pusat",
+      "date": "2022-12-25 10:00:00",
+      "CategoryId": 1,
       "capacity": 10,
       "currentCapacity": 3,
-      "status": 1
+      "status": 1,
+      "duration": "2",
+      "type": 1,
+      "description": "Pertandingan ini digelar untuk mempererat silaturahmi di malam natal",
+      "UserId": 1,
+      "FieldId": 1
     }
   ],
   "matchDetails": [
     {
       "MatchId": 1,
       "UserId": 1,
-      "role": "author"
+      "status": 1
     },
     {
       "MatchId": 1,
       "UserId": 2,
-      "role": "member"
+      "status": 1
     },
     {
       "MatchId": 1,
       "UserId": 3,
-      "role": "member"
+      "status": 1
     }
   ]
 }

@@ -2,48 +2,33 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Schedules', {
+    await queryInterface.createTable('MatchDetails', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      AuthorId: {
+      MatchId: {
         type: Sequelize.INTEGER,
         references: {
           model: {
-            tableName: 'Admins'
+            tableName: 'Matches'
           },
           key: 'id'
         }
       },
-      CategoryId: {
+      UserId: {
         type: Sequelize.INTEGER,
         references: {
-          model: {
-            tableName: 'Categories'
+          model :{
+            tableName: 'Users'
           },
           key: 'id'
         }
-      },
-      name: {
-        type: Sequelize.STRING
-      },
-      startTime: {
-        type: Sequelize.DATE
-      },
-      endTime: {
-        type: Sequelize.DATE
-      },
-      price: {
-        type: Sequelize.INTEGER
       },
       status: {
         type: Sequelize.INTEGER
-      },
-      day: {
-        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -56,6 +41,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Schedules');
+    await queryInterface.dropTable('MatchDetails');
   }
 };

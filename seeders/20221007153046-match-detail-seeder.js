@@ -12,14 +12,15 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    const matches = require('../data/data.json').matches.map(match => {
+    const matchDetails = require('../data/data.json').matchDetails.map(matchDetail => {
       return {
-        ...match,
+        ...matchDetail,
         createdAt: new Date(),
         updatedAt: new Date()
-      }
+      };
     })
-    await queryInterface.bulkInsert('Matches', matches);
+
+    await queryInterface.bulkInsert('MatchDetails', matchDetails);
   },
 
   async down (queryInterface, Sequelize) {
@@ -29,6 +30,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete('Matches', null, {});
+    await queryInterface.bulkDelete('MatchDetails', null, {});
   }
 };

@@ -12,14 +12,15 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    const schedules = require('../data/data.json').schedules.map(schedule => {
+    const categories = require('../data/data.json').categories.map(category => {
       return {
-        ...schedule,
+        ...category,
         createdAt: new Date(),
         updatedAt: new Date()
-      }
+      };
     })
-    await queryInterface.bulkInsert('Schedules', schedules);
+
+    await queryInterface.bulkInsert('Categories', categories);
   },
 
   async down (queryInterface, Sequelize) {
@@ -29,6 +30,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete('Events', null, {});
+    await queryInterface.bulkDelete('Categories', null, {});
   }
 };
