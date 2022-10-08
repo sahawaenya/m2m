@@ -77,3 +77,96 @@
   "message": "string"
 }
 ```
+
+### GET /fields
+
+#### Description
+
+- fetch fields data
+
+#### Request :
+
+- Method : GET
+
+#### Response :
+
+200 - OK
+
+```json
+{
+  "id": "string",
+  "name": "string",
+  "phoneNumber": "string",
+  "location": "string",
+  "image": "string",
+  "price": "integer",
+  "CategoryId": "integer",
+  "status": "integer",
+  "openHour": "string",
+  "closeHour": "string",
+  "createdAt": "date",
+  "updatedAt": "date",
+  "Category": "object"
+}
+```
+
+### POST /matches
+
+#### Description
+
+- Create new match
+
+#### Request :
+
+- Method : POST
+- Headers:
+
+```json
+{
+  "access_token": "string"
+}
+```
+
+- Body :
+
+```json
+{
+  "name": "string",
+  "location": "string",
+  "date": "date",
+  "CategoryId": "integer",
+  "capacity": "integer",
+  "currentCapacity": "integer",
+  "status": "integer",
+  "duration": "string",
+  "type": "integer",
+  "description": "string",
+  "FieldId": "integer"
+}
+```
+
+#### Response :
+
+200 - OK
+
+```json
+{
+  "message": "string"
+}
+```
+
+400 - Bad Request
+
+```json
+{
+  "message": "string"
+}
+```
+
+401 - Unauthorized
+
+```json
+{
+  "message": "string"
+}
+```
