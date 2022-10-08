@@ -170,3 +170,46 @@
   "message": "string"
 }
 ```
+
+### DELETE /matches/:matchId
+
+#### Description
+
+- Delete match that created by user(only user who create match can delete particular match)
+
+#### Request :
+
+- Method : Delete
+- Headers :
+
+```json
+{
+  "access_token": "string"
+}
+```
+
+#### Response :
+
+200 - OK
+
+```json
+{
+  "message": "string"
+}
+```
+
+401 - Unauthorized
+
+```json
+{
+  "message": "string"
+}
+```
+
+404 - Not Found
+
+```json
+{
+  "message": "string"
+}
+```

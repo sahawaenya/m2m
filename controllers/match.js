@@ -44,6 +44,34 @@ class MatchController {
       res.send(error);
     }
   }
+
+  static async deleteMatch(req, res, next) {
+    try {
+      const { access_token } = req.headers;
+      const payload = verifyToken(access_token);
+      const userLog = await User.findByPk(payload.id);
+      if (!userLog) {
+        throw new Error("user not found");
+      }
+
+      const { matchId } = req.params;
+      const matchToDelete = await Match.findByPk(matchId);
+      if (!matchToDelete) {
+        throw new Error("data not found");
+      }
+      if (matchToDelete.UserId !== userLog.id) {
+        throw new Error("dont have access to delete match");
+      }
+      const deleteMatch = await Match.destroy({
+        where: { id: matchToDelete.id, UserId: userLog.id },
+      });
+      res
+        .status(200)
+        .json({ message: `Match with id ${matchId} successfully deleted` });
+    } catch (error) {
+      res.send(error);
+    }
+  }
 }
 
 module.exports = MatchController;
