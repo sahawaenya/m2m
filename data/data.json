@@ -80,6 +80,20 @@
       "description": "Pertandingan ini digelar untuk mempererat silaturahmi di malam natal",
       "UserId": 1,
       "FieldId": 1
+    },
+    {
+      "name": "Jogging Malam Tahun Baru",
+      "location": "Jakarta Pusat",
+      "date": "2022-12-25 10:00:00",
+      "CategoryId": 6,
+      "capacity": 5,
+      "currentCapacity": 1,
+      "status": 1,
+      "duration": "2",
+      "type": 0,
+      "description": "Jogging sekalian acara barbeque",
+      "UserId": 1,
+      "FieldId": null
     }
   ],
   "matchDetails": [
@@ -97,6 +111,16 @@
       "MatchId": 1,
       "UserId": 3,
       "status": 1
+    },
+    {
+      "MatchId": 2,
+      "UserId": 1,
+      "status": 1
+    },
+    {
+      "MatchId": 2,
+      "UserId": 2,
+      "status": 0
     }
   ]
 }
