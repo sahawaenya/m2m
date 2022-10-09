@@ -1,4 +1,5 @@
 const { comparePassword } = require("../helpers/bcrypt");
+const CustomError = require("../helpers/customError");
 const { createToken } = require("../helpers/jwt");
 const { User } = require("../models");
 
@@ -8,31 +9,30 @@ class UserController {
       const { email, password } = req.body;
       const userLog = await User.findOne({ where: { email } });
       if (!userLog) {
-        throw new Error("invalid email/password");
+        throw new CustomError("invalid email/password", "Bad Request", 400);
       }
       const validateUser = comparePassword(password, userLog.password);
       if (!validateUser) {
-        throw new Error("invalid email/password");
+        throw new CustomError("invalid email/password", "Bad Request", 400);
       }
       const payload = { id: userLog.id };
       const access_token = createToken(payload);
-      res.status(200).json({ access_token });
+      res.status(200).json({ access_token, id: userLog.id });
     } catch (error) {
-      res.send({ error });
+      next(error);
     }
   }
 
   static async register(req, res, next) {
     try {
       const { name, email, password, bio } = req.body;
-      console.log(name, email, password, bio, "<<< ini body");
+
       const registerUser = await User.create({ name, email, password, bio });
       res.status(201).json({
         message: `successfully register user with id ${registerUser.id}`,
       });
     } catch (error) {
-      res.send(error);
-      console.log(error);
+      next(error);
     }
   }
 }

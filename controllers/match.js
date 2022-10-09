@@ -1,17 +1,19 @@
-const {verifyToken} = require("../helpers/jwt");
-const {Match, User, Category, Field, MatchDetail, sequelize} = require("../models");
-const {Op} = require('sequelize');
-const CustomError = require('../helpers/customError');
+const { verifyToken } = require("../helpers/jwt");
+const {
+  Match,
+  User,
+  Category,
+  Field,
+  MatchDetail,
+  sequelize,
+} = require("../models");
+const { Op } = require("sequelize");
+const CustomError = require("../helpers/customError");
 
 class MatchController {
   static async addMatch(req, res, next) {
     try {
-      const {access_token} = req.headers;
-      const payload = verifyToken(access_token);
-      const userLog = await User.findByPk(payload.id);
-      if (!userLog) {
-        throw new Error("user not found");
-      }
+      const user = req.user.id;
       const {
         name,
         location,
@@ -37,49 +39,49 @@ class MatchController {
         type,
         description,
         FieldId,
-        UserId: payload.id,
+        UserId: user,
       });
       res
         .status(201)
-        .json({message: `success create new Match with id ${newMatch.id}`});
+        .json({ message: `success create new Match with id ${newMatch.id}` });
     } catch (error) {
-      res.send(error);
+      next(error);
     }
   }
 
   static async deleteMatch(req, res, next) {
     try {
-      const {access_token} = req.headers;
-      const payload = verifyToken(access_token);
-      const userLog = await User.findByPk(payload.id);
-      if (!userLog) {
-        throw new Error("user not found");
-      }
+      const user = req.user.id;
 
-      const {matchId} = req.params;
+      const { matchId } = req.params;
       const matchToDelete = await Match.findByPk(matchId);
       if (!matchToDelete) {
-        throw new Error("data not found");
+        throw new CustomError("data not found", "not found", 404);
       }
-      if (matchToDelete.UserId !== userLog.id) {
-        throw new Error("dont have access to delete match");
+      if (matchToDelete.UserId !== user) {
+        throw new CustomError(
+          "dont have access to delete match",
+          "Forbidden",
+          403
+        );
       }
       const deleteMatch = await Match.destroy({
-        where: {id: matchToDelete.id, UserId: userLog.id},
+        where: { id: matchToDelete.id, UserId: user },
       });
       res
         .status(200)
-        .json({message: `Match with id ${matchId} successfully deleted`});
+        .json({ message: `Match with id ${matchId} successfully deleted` });
     } catch (error) {
-      res.send(error);
+      next(error);
     }
   }
 
   static async getAllMatches(req, res, next) {
     try {
-      const {userId, status} = req.query;
+      const { userId, status } = req.query;
       let matches;
-      if (Number(userId) && Number(userId) !== Number(req.user.id)) throw new CustomError('Forbidden', 'Forbidden', 403);
+      if (Number(userId) && Number(userId) !== Number(req.user.id))
+        throw new CustomError("Forbidden", "Forbidden", 403);
 
       const whereClause = {};
 
@@ -88,17 +90,17 @@ class MatchController {
           include: [
             {
               model: MatchDetail,
-              where: {status, UserId: userId}
-            }
-          ]
+              where: { status, UserId: userId },
+            },
+          ],
         });
       } else {
         if (userId) {
           whereClause.UserId = Number(userId);
-        }else{
-          whereClause.capacity = {[Op.gt]: sequelize.col('currentCapacity')};
+        } else {
+          whereClause.capacity = { [Op.gt]: sequelize.col("currentCapacity") };
         }
-        matches = await Match.findAll({where: whereClause});
+        matches = await Match.findAll({ where: whereClause });
       }
 
       res.status(200).json(matches);
@@ -109,13 +111,34 @@ class MatchController {
 
   static async getMatchesById(req, res) {
     try {
-      const {matchId} = req.params;
+      const { matchId } = req.params;
       const match = await Match.findByPk(matchId, {
-        attributes: ['id', 'name','type', 'location', 'date', 'capacity', 'currentCapacity', 'duration', 'description'],
+        attributes: [
+          "id",
+          "name",
+          "type",
+          "location",
+          "date",
+          "capacity",
+          "currentCapacity",
+          "duration",
+          "description",
+        ],
         include: [
-          {model: Category, attributes: ['name', 'image']},
-          {model: Field, attributes: ['name', 'phoneNumber', 'location', 'image', 'price', 'openHour', 'closeHour']}
-        ]
+          { model: Category, attributes: ["name", "image"] },
+          {
+            model: Field,
+            attributes: [
+              "name",
+              "phoneNumber",
+              "location",
+              "image",
+              "price",
+              "openHour",
+              "closeHour",
+            ],
+          },
+        ],
       });
       res.status(200).json(match);
     } catch (e) {
@@ -126,20 +149,25 @@ class MatchController {
 
   static async joinMatches(req, res, next) {
     try {
-      const {matchId: MatchId} = req.params;
-      const {id: UserId} = req.user;
+      const { matchId: MatchId } = req.params;
+      const { id: UserId } = req.user;
       const status = 0;
 
       const [match, created] = await MatchDetail.findOrCreate({
-        where: {MatchId, UserId},
+        where: { MatchId, UserId },
         defaults: {
           MatchId,
           UserId,
-          status
-        }
-      })
+          status,
+        },
+      });
 
-      if(!created) throw new CustomError('Cannot join this match more than one', 'Bad Request', 400);
+      if (!created)
+        throw new CustomError(
+          "Cannot join this match more than one",
+          "Bad Request",
+          400
+        );
 
       res.status(201).json(match);
     } catch (e) {
@@ -149,23 +177,24 @@ class MatchController {
 
   static async showRequestParticipants(req, res, next) {
     try {
-      const {matchId: MatchId} = req.params
-      const {id} = req.user;
+      const { matchId: MatchId } = req.params;
+      const { id } = req.user;
 
       const match = await Match.findByPk(MatchId);
-      if(Number(match.UserId) !== Number(id)) throw new CustomError('Forbidden', 'Forbidden', 403);
+      if (Number(match.UserId) !== Number(id))
+        throw new CustomError("Forbidden", "Forbidden", 403);
 
       const result = await MatchDetail.findAll({
         include: [
           {
             model: User,
-            attributes: ['name', 'bio']
-          }
+            attributes: ["name", "bio"],
+          },
         ],
         where: {
           MatchId,
-          status: 0
-        }
+          status: 0,
+        },
       });
       res.status(200).send(result);
     } catch (e) {
@@ -175,25 +204,31 @@ class MatchController {
 
   static async changeRequestParticipantsStatus(req, res, next) {
     try {
-      const {status} = req.body;
-      const {matchId: MatchId, participantId: UserId} = req.params;
+      const { status } = req.body;
+      const { matchId: MatchId, participantId: UserId } = req.params;
       let message;
 
-      await MatchDetail.update({status}, {
-        where: {
-          MatchId,
-          UserId
+      await MatchDetail.update(
+        { status },
+        {
+          where: {
+            MatchId,
+            UserId,
+          },
         }
-      })
+      );
       if (Number(status) === 1) {
-        message = `user status with id ${UserId} changed from pending to approved`
-        await Match.increment({currentCapacity: 1}, {where: {id: MatchId}});
-      }else{
-        message = `user status with id ${UserId} changed from pending to rejected`
+        message = `user status with id ${UserId} changed from pending to approved`;
+        await Match.increment(
+          { currentCapacity: 1 },
+          { where: { id: MatchId } }
+        );
+      } else {
+        message = `user status with id ${UserId} changed from pending to rejected`;
       }
 
       res.status(200).json({
-        message
+        message,
       });
     } catch (e) {
       next(e);
