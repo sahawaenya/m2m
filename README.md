@@ -2,82 +2,32 @@
 
 List of Available Endpoints:
 
-- `POST /admin/login`
-- `GET /categories`
-- `POST /categories` (Need Authorization : superadmin)
-- `PUT /categories/:categoryId` (Need Authorization : superadmin)
-- `DELETE /categories/:categoryId` (Need Authorization : superadmin)
-- `GET /admins` (Need Authorization : superadmin)
-- `POST /admins` (Need Authorization : superadmin)
-- `DELETE /admins/:adminId` (Need Authorization : superadmin)
-- `GET /schedules`
-- `POST /schedules` (Need Authorization : admin)
-- `PUT /schedules/:scheduleId` (Need Authorization : admin)
-- `DELETE /schedules/:scheduleId` (Need Authorization : admin)
-- `POST /login`
-- `POST /register`
-- `PATCH /verifyUser`
-- `GET /events` (Need Authorization : user)
-- `GET /events/:eventId` (Need Authorization : user)
-- `PATCH /events/:eventId` (Need Authorization : user)
-- `POST /events`  (Need Authorization : user)
+- `GET /matches`
+- `GET /matches/matchId`
+- `POST /matches/:matchId/join`
+- `GET /matches/:matchId/participants`
+- `PATCH /matches/:matchId/participants/:participantId`
 
-- Auth Controller (Refaldy)
-- Category Controller (Inez)
-- Admin Controller (Refaldy)
-- Schedule Controller (Khansa)
-- Event Controller (Mirza)
-
-### POST /admin/login
+### GET /matches
 
 #### Description
 
-- Login superadmin & admin
+- Get all matches
 
-#### Request :
+Available Query Params
 
-- Method : POST
-- Body :
+| Name   | Description                                                       |
+|--------|-------------------------------------------------------------------|
+| userId | Get all matches based on given user id                            |
+| status | Get all matches based on approval status (0: pending, 1:approved) |
 
-```json
-
-{
-  "username": "string",
-  "password": "string"
-}
-
-```
-
-#### Response :
-
-200 - OK
-
-```json
-
-{
-  "access_token": "string"
-}
-```
-
-401 - Unauthorized
-
-```json
-
-{
-  "message": "string"
-}
-
-```
-
-### GET /categories
-
-#### Description
-
-- Fetch all categories
+> **_NOTE:_**  If you are using status then the userId is required.
 
 #### Request :
 
 - Method : GET
+- Headers :
+    - access_token : "string"
 
 #### Response :
 
@@ -86,32 +36,36 @@ List of Available Endpoints:
 ```json
 [
   {
-    "id" : "integer",
-    "name": "string"
+    "id": "integer",
+    "name": "string",
+    "location": "string",
+    "date": "date",
+    "CategoryId": "integer",
+    "capacity": "integer",
+    "currentCapacity": "integer",
+    "status": "integer",
+    "duration": "string",
+    "type": "integer",
+    "description": "string",
+    "UserId": "integer",
+    "FieldId": "integer",
+    "createdAt": "date",
+    "updatedAt": "date"
   }
 ]
 ```
 
-### POST /categories
+### GET /matches/:matchId
 
 #### Description
 
-- Create new category
+- Get match detail based on given match id
 
 #### Request :
 
-- Method : POST
-- Header :
-    - access_token : string
-- Body :
-
-```json
-
-{
-  "name": "string"
-}
-
-```
+- Method : GET
+- Headers :
+    - access_token : "string"
 
 #### Response :
 
@@ -120,15 +74,167 @@ List of Available Endpoints:
 ```json
 
 {
-  "access_token": "string"
+  "id": "integer",
+  "name": "string",
+  "type": "integer",
+  "location": "string",
+  "date": "date",
+  "capacity": "integer",
+  "currentCapacity": "integer",
+  "duration": "string",
+  "description": "string",
+  "Category": {
+    "name": "string",
+    "image": "string"
+  },
+  "Field": {
+    "name": "string",
+    "phoneNumber": "string",
+    "location": "string",
+    "image": "string",
+    "price": "integer",
+    "openHour": "string",
+    "closeHour": "string"
+  }
 }
 ```
+
+> **_NOTE:_**  If type is equal to 0 then Field supposed to be null.
+
+### POST /matches/:matchId/join
+
+#### Description
+
+- Join match based on given match id
+
+#### Request :
+
+- Method : POST
+- Headers :
+    - access_token : "string"
+- Params :
+    - matchId : "integer"
+
+#### Response :
+
+200 - OK
+
+```json
+{
+  "id": "integer",
+  "MatchId": "integer",
+  "UserId": "integer",
+  "status": "integer",
+  "updatedAt": "date",
+  "createdAt": "date"
+}
+```
+
+400 - Bad Request
+
+```json
+{
+  "message": "string"
+}
+```
+
+### GET /matches/:matchId/participants
+
+#### Description
+
+- Get all pending participants based on given match id
+
+#### Request :
+
+- Method : POST
+- Headers :
+    - access_token : "string"
+- Params :
+    - matchId : "integer"
+
+#### Response :
+
+200 - OK
+
+```json
+[
+  {
+    "id": "integer",
+    "MatchId": "integer",
+    "UserId": "integer",
+    "status": "integer",
+    "updatedAt": "date",
+    "createdAt": "date",
+    "User": {
+      "name": "string",
+      "bio": "string"
+    }
+  }
+]
+```
+
+### PATCH /matches/:matchId/participants/:participantId
+
+#### Description
+
+- Change joined user status
+
+#### Request :
+
+- Method : PATCH
+- Headers :
+    - access_token : "string"
+- Params :
+    - matchId : "integer",
+    - participantId: "integer"
+
+- Body :
+
+```json
+{
+  "status": "integer"
+}
+```
+
+| Status | Description |
+|--------|-------------|
+| 1      | Approved    |
+| 2      | Rejected    |
+
+#### Response :
+
+200 - OK
+
+```json
+{
+  "message": "string"
+}
+```
+
+### Global Error
+
+#### Response :
 
 401 - Unauthorized
 
 ```json
-
 {
-  "message": "string"
+  "message": "Unauthorized"
+}
+```
+
+403 - Forbidden
+
+```json
+{
+  "message": "Forbidden"
+}
+```
+
+500 - Internal Server Error
+
+```json
+{
+  "message": "Internal Server Error"
 }
 ```
