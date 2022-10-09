@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "jest --runInBand --forceExit --coverage",
-    "dev": "nodemon app.js",
-    "start": "node app.js"
+    "dev": "nodemon bin/www",
+    "start": "node bin/www"
   },
   "repository": {
     "type": "git",
