@@ -1,4 +1,3 @@
-const { verifyToken } = require("../helpers/jwt");
 const {
   Match,
   User,
@@ -65,7 +64,7 @@ class MatchController {
           403
         );
       }
-      const deleteMatch = await Match.destroy({
+      await Match.destroy({
         where: { id: matchToDelete.id, UserId: user },
       });
       res
@@ -109,7 +108,7 @@ class MatchController {
     }
   }
 
-  static async getMatchesById(req, res) {
+  static async getMatchesById(req, res, next) {
     try {
       const { matchId } = req.params;
       const match = await Match.findByPk(matchId, {
@@ -142,8 +141,7 @@ class MatchController {
       });
       res.status(200).json(match);
     } catch (e) {
-      console.log(e);
-      res.send(e);
+      next(e);
     }
   }
 
