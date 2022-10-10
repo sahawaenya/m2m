@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1665413594718" clover="3.2.0">
-  <project timestamp="1665413594719" name="All files">
+<coverage generated="1665414967122" clover="3.2.0">
+  <project timestamp="1665414967122" name="All files">
     <metrics statements="230" coveredstatements="152" conditionals="41" coveredconditionals="13" methods="32" coveredmethods="23" elements="303" coveredelements="188" complexity="0" loc="230" ncloc="230" packages="6" files="19" classes="19"/>
     <package name="m2m-backend">
       <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
