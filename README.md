@@ -7,6 +7,7 @@ List of Available Endpoints:
 - `POST /matches/:matchId/join`
 - `GET /matches/:matchId/participants`
 - `PATCH /matches/:matchId/participants/:participantId`
+- `GET /categories`
 
 ### GET /matches
 
@@ -211,6 +212,32 @@ Available Query Params
 {
   "message": "string"
 }
+```
+
+### GET /categories
+
+#### Description
+
+- Get all categories
+
+#### Request :
+
+- Method : GET
+
+#### Response :
+
+200 - OK
+
+```json
+[
+  {
+    "id": "integer",
+    "name": "string",
+    "image": "string",
+    "createdAt": "date",
+    "updatedAt": "date"
+  }
+]
 ```
 
 ### Global Error
