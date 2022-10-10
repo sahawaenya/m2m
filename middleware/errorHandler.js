@@ -15,9 +15,7 @@ const errorHandler = (err, req, res, next) => {
   }
 
   if (err instanceof ValidationError) {
-    return res
-      .status(400)
-      .json({ message: err.errors.map((el) => el.message) });
+    return res.status(400).json(err.errors.map((el) => el.message));
   }
 
   res.status(500).json({
