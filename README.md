@@ -53,7 +53,12 @@ Available Query Params
     "UserId": "integer",
     "FieldId": "integer",
     "createdAt": "date",
-    "updatedAt": "date"
+    "updatedAt": "date",
+    "Category": {
+      "id": "integer",
+      "name": "string",
+      "image": "string"
+    }
   }
 ]
 ```
