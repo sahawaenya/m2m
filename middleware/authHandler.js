@@ -8,7 +8,7 @@ const authHandler = (req, res, next) => {
 
     const decodedToken = verifyToken(access_token);
 
-    if(!decodedToken) throw new CustomError('Unauthorized', 'Unauthorized', 401);
+    // if(!decodedToken) throw new CustomError('Unauthorized', 'Unauthorized', 401);
 
     req.user = {id: decodedToken.id};
     next();
