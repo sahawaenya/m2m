@@ -91,6 +91,10 @@ class MatchController {
               model: MatchDetail,
               where: {status, UserId: userId},
             },
+            {
+              model: Category,
+              attributes: ['id','name','image']
+            }
           ],
         });
       } else {
@@ -108,7 +112,8 @@ class MatchController {
           whereClause.CategoryId = Number(category);
         }
 
-        matches = await Match.findAll({where: whereClause});
+        whereClause.date = {[Op.gt]: new Date()};
+        matches = await Match.findAll({where: whereClause, include: [{model: Category, attributes: ['id','name', 'image']}]});
       }
 
       res.status(200).json(matches);
