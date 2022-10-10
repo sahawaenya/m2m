@@ -13,6 +13,7 @@ List of Available Endpoints:
 - `POST /matches/:matchId/join`
 - `GET /matches/:matchId/participants`
 - `PATCH /matches/:matchId/participants/:participantId`
+- `GET /categories`
 
 ### POST /login
 
@@ -128,10 +129,13 @@ List of Available Endpoints:
 
 Available Query Params
 
-| Name   | Description                                                       |
-| ------ | ----------------------------------------------------------------- |
-| userId | Get all matches based on given user id                            |
-| status | Get all matches based on approval status (0: pending, 1:approved) |
+| Name     | Description                                                       |
+|----------|-------------------------------------------------------------------|
+| userId   | Get all matches based on given user id                            |
+| status   | Get all matches based on approval status (0: pending, 1:approved) |
+| location | Get all matches based on given location                           |
+| category | Get all matches based on given category id |
+
 
 > **_NOTE:_** If you are using status then the userId is required.
 
@@ -162,7 +166,12 @@ Available Query Params
     "UserId": "integer",
     "FieldId": "integer",
     "createdAt": "date",
-    "updatedAt": "date"
+    "updatedAt": "date",
+    "Category": {
+      "id": "integer",
+      "name": "string",
+      "image": "string"
+    }
   }
 ]
 ```
@@ -425,6 +434,32 @@ Available Query Params
 {
   "message": "string"
 }
+```
+
+### GET /categories
+
+#### Description
+
+- Get all categories
+
+#### Request :
+
+- Method : GET
+
+#### Response :
+
+200 - OK
+
+```json
+[
+  {
+    "id": "integer",
+    "name": "string",
+    "image": "string",
+    "createdAt": "date",
+    "updatedAt": "date"
+  }
+]
 ```
 
 ### Global Error

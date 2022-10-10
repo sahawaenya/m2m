@@ -1,25 +1,32 @@
 {
   "categories": [
     {
-      "name": "Futsal"
+      "name": "Futsal",
+      "image": "https://images.pexels.com/photos/3846652/pexels-photo-3846652.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
     },
     {
-      "name": "Basketball"
+      "name": "Basketball",
+      "image": "https://images.pexels.com/photos/358042/pexels-photo-358042.jpeg?auto=compress&cs=tinysrgb&w=600"
     },
     {
-      "name": "Tennis"
+      "name": "Tennis",
+      "image": "https://images.pexels.com/photos/209977/pexels-photo-209977.jpeg?auto=compress&cs=tinysrgb&w=600"
     },
     {
-      "name": "Badminton"
+      "name": "Badminton",
+      "image": "https://images.pexels.com/photos/5767580/pexels-photo-5767580.jpeg?auto=compress&cs=tinysrgb&w=600"
     },
     {
-      "name": "Martial Arts"
+      "name": "Martial Arts",
+      "image": "https://images.pexels.com/photos/2628210/pexels-photo-2628210.jpeg?auto=compress&cs=tinysrgb&w=600"
     },
     {
-      "name": "Jogging"
+      "name": "Jogging",
+      "image": "https://images.pexels.com/photos/601177/pexels-photo-601177.jpeg?auto=compress&cs=tinysrgb&w=600"
     },
     {
-      "name": "Volley"
+      "name": "Volleyball",
+      "image": "https://images.pexels.com/photos/1263426/pexels-photo-1263426.jpeg?auto=compress&cs=tinysrgb&w=600"
     }
   ],
   "fields": [
