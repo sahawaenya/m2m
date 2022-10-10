@@ -84,7 +84,7 @@ List of Available Endpoints:
 
 ```json
 {
-  "message": "string"
+  "message": ["string"]
 }
 ```
 
