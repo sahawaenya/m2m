@@ -16,10 +16,12 @@ List of Available Endpoints:
 
 Available Query Params
 
-| Name   | Description                                                       |
-|--------|-------------------------------------------------------------------|
-| userId | Get all matches based on given user id                            |
-| status | Get all matches based on approval status (0: pending, 1:approved) |
+| Name     | Description                                                       |
+|----------|-------------------------------------------------------------------|
+| userId   | Get all matches based on given user id                            |
+| status   | Get all matches based on approval status (0: pending, 1:approved) |
+| location | Get all matches based on given location                           |
+| category | Get all matches based on given category id |
 
 > **_NOTE:_**  If you are using status then the userId is required.
 
