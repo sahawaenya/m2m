@@ -50,7 +50,7 @@ describe("/login", () => {
     expect(response.status).toBe(400);
   });
   test("/login failed wrong password", async () => {
-    const userInput = { email: "khansa@gmail.com", password: "pas" };
+    const userInput = { email: "test@gmail.com", password: "pas" };
     const response = await request(app).post("/login").send(userInput);
     expect(response.status).toBe(400);
   });
