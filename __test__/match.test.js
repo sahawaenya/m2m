@@ -27,6 +27,21 @@ const userTest3 = {
   password: "password"
 }
 
+const newMatch = {
+  "name": "Pertandingan Silaturahmi Kamis Putih",
+  "location": "Jakarta Selatan",
+  "date": "2022-12-25 10:00:00",
+  "CategoryId": 1,
+  "capacity": 10,
+  "currentCapacity": 3,
+  "status": 1,
+  "duration": "2",
+  "type": 1,
+  "description": "Pertandingan ini digelar untuk mempererat silaturahmi di hari yang diberkati",
+  "UserId": 3,
+  "FieldId": 1
+}
+
 beforeAll(async () => {
   const user1 = await User.create(userTest1);
   validToken1 = createToken({id: user1.id});
@@ -74,6 +89,45 @@ afterAll(async () => {
   await queryInterface.bulkDelete('Matches', null, {truncate: true, cascade: true, restartIdentity: true})
   await queryInterface.bulkDelete('MatchDetails', null, {truncate: true, cascade: true, restartIdentity: true})
 })
+
+describe('POST /matches', function () {
+  test('it should return created', async () => {
+    const response = await request(app)
+      .post('/matches')
+      .send(newMatch)
+      .set('access_token', validToken3)
+    expect(response.status).toEqual(201)
+  })
+  test('it should return bad request', async () => {
+    const response = await request(app)
+      .post('/matches')
+      .send()
+      .set('access_token', validToken3)
+    expect(response.status).toEqual(400)
+  })
+});
+
+describe('DELETE /matches/:matchId', function () {
+  test('it should return not found', async () => {
+    const response = await request(app)
+      .delete('/matches/3')
+      .set('access_token', validToken1)
+    expect(response.status).toEqual(403)
+  })
+
+  test('it should return success', async () => {
+    const response = await request(app)
+      .delete('/matches/3')
+      .set('access_token', validToken3)
+    expect(response.status).toEqual(200)
+  })
+  test('it should return not found', async () => {
+    const response = await request(app)
+      .delete('/matches/5')
+      .set('access_token', validToken3)
+    expect(response.status).toEqual(404)
+  })
+});
 
 describe('GET /matches', () => {
   test('it should return all matches', async () => {
