@@ -51,6 +51,50 @@
       "location": "Jl. Kramat II No.17, RT.1/RW.8, Kwitang, Kec. Senen, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10420",
       "price": 240000,
       "status": 0
+    },
+    {
+      "phoneNumber": "0215734070",
+      "CategoryId": 3,
+      "name": "Tennis Outdoor Gelora Bung Karno",
+      "openHour": "08:00",
+      "closeHour": "23:30",
+      "image": "http://gbk.id/upload/1640579712-centercourt%201.jpg",
+      "location": "Jl. Pintu Satu Senayan, RT.1/RW.3, Gelora, Kecamatan Tanah Abang, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10270",
+      "price": 240000,
+      "status": 0
+    },
+    {
+      "phoneNumber": "0215263150",
+      "CategoryId": 3,
+      "name": "Tennis Elite Club Epicentrum",
+      "openHour": "08:00",
+      "closeHour": "23:30",
+      "image": "https://bakrieland.com/assets/bakrieland-files/listprojects1/5aeef5d63665f.jpg",
+      "location": " Setia Budi, Jl. HR. Rasuna Said No.Kav C 22, RT.2/RW.5, Karet Kuningan, Kecamatan Setiabudi, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12940",
+      "price": 240000,
+      "status": 0
+    } ,
+    {
+      "phoneNumber": "0818983383",
+      "CategoryId": 4,
+      "name": "Supreme Arena Badminton",
+      "openHour": "07:00",
+      "closeHour": "23:00",
+      "image": "https://admin.saraga.id/storage/images/20210914-172440_1631615724.jpg",
+      "location": "Jalan Karet Pedurenan Al Barokah #12A, RT.4/RW.6, Kuningan, Karet Kuningan, Kecamatan Setiabudi, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12940",
+      "price": 240000,
+      "status": 0
+    },
+    {
+      "phoneNumber": "0215263150",
+      "CategoryId": 4,
+      "name": "GOR Badminton Mega Kuningan",
+      "openHour": "07:00",
+      "closeHour": "12:00",
+      "image": "https://blue.kumparan.com/image/upload/fl_progressive,fl_lossy,c_fill,q_auto:best,w_640/v1634025439/01g6q1zwahb1x89gf78dbpqhtv.jpg",
+      "location": " Jl. Karet Pedurenan No.62B, RT.12/RW.4, Kuningan, Karet Kuningan, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12940",
+      "price": 100000,
+      "status": 0
     }
   ],
   "users": [
