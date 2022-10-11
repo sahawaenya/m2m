@@ -212,8 +212,6 @@ describe('GET /matches/:matchId', () => {
     expect(response.body).toBeInstanceOf(Object);
   })
   test('it should return error', async () => {
-    // User.findAll = jest.fn().mockRejectedValue('Error')
-
     jest.spyOn(Match, 'findByPk').mockRejectedValue('Error')
 
     const response = await request(app)
@@ -278,13 +276,30 @@ describe('PATCH /matches/:matchId/participants/:participantId', () => {
     expect(response.status).toEqual(401);
   })
   test('it should return error', async () => {
-    // User.findAll = jest.fn().mockRejectedValue('Error')
-
     jest.spyOn(MatchDetail, 'update').mockRejectedValue('Error')
 
     const response = await request(app)
       .patch('/matches/2/participants/3')
       .send('status=2')
+      .set('access_token', validToken1);
+    expect(response.status).toEqual(500);
+  })
+});
+
+
+describe('DELETE /matches/:matchId/leave', () => {
+  test('it should return success left the match', async () => {
+    const response = await request(app)
+      .delete('/matches/1/leave')
+      .set('access_token', validToken2);
+    expect(response.status).toEqual(200);
+  })
+
+  test('it should return error', async () => {
+    jest.spyOn(MatchDetail, 'destroy').mockRejectedValue('Error')
+
+    const response = await request(app)
+      .delete('/matches/1/leave')
       .set('access_token', validToken1);
     expect(response.status).toEqual(500);
   })
