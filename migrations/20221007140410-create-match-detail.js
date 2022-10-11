@@ -16,7 +16,9 @@ module.exports = {
             tableName: 'Matches'
           },
           key: 'id'
-        }
+        },
+        onUpdate: 'cascade',
+        onDelete: 'cascade'
       },
       UserId: {
         type: Sequelize.INTEGER,
