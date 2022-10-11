@@ -1,7 +1,7 @@
 const app = require('../app');
 const request = require('supertest');
 const {createToken} = require('../helpers/jwt');
-const {User, sequelize} = require('../models');
+const {User, sequelize, MatchDetail, Match} = require('../models');
 let validToken1, validToken2, validToken3;
 let invalidToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjY1MzkwMzQwfQ.ZcGWluNdP_tUW4W_dBblT9FV7pujsZADF02GbITmi4"
 const {queryInterface} = sequelize;
@@ -80,6 +80,10 @@ beforeAll(async () => {
   await queryInterface.bulkInsert('Fields', fields);
   await queryInterface.bulkInsert('Matches', matches);
   await queryInterface.bulkInsert('MatchDetails', matchDetails);
+})
+
+beforeEach(() => {
+  jest.restoreAllMocks()
 })
 
 afterAll(async () => {
@@ -207,6 +211,16 @@ describe('GET /matches/:matchId', () => {
     expect(response.status).toEqual(200);
     expect(response.body).toBeInstanceOf(Object);
   })
+  test('it should return error', async () => {
+    // User.findAll = jest.fn().mockRejectedValue('Error')
+
+    jest.spyOn(Match, 'findByPk').mockRejectedValue('Error')
+
+    const response = await request(app)
+      .get('/matches/1')
+      .set('access_token', validToken1);
+    expect(response.status).toEqual(500);
+  })
 })
 
 describe('POST /matches/:matchId/join', () => {
@@ -262,5 +276,16 @@ describe('PATCH /matches/:matchId/participants/:participantId', () => {
       .send('status=2')
       .set('access_token', invalidToken);
     expect(response.status).toEqual(401);
+  })
+  test('it should return error', async () => {
+    // User.findAll = jest.fn().mockRejectedValue('Error')
+
+    jest.spyOn(MatchDetail, 'update').mockRejectedValue('Error')
+
+    const response = await request(app)
+      .patch('/matches/2/participants/3')
+      .send('status=2')
+      .set('access_token', validToken1);
+    expect(response.status).toEqual(500);
   })
 });
