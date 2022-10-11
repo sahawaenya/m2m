@@ -261,6 +261,28 @@ class MatchController {
       next(e);
     }
   }
+
+  static async leaveMatch(req, res, next) {
+    try{
+      const {id} = req.user;
+      const {matchId} = req.params;
+
+      await MatchDetail.destroy({
+        where: {
+          UserId: id,
+          MatchId : matchId
+        }
+      })
+
+      await Match.decrement({currentCapacity: 1}, {where: {id : matchId}});
+
+      res.status(200).json({
+        message : `user with id ${id} success left the match with id ${matchId}`
+      });
+    }catch (e) {
+      next(e);
+    }
+  }
 }
 
 module.exports = MatchController;
