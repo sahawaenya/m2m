@@ -9,11 +9,11 @@ List of Available Endpoints:
 - `POST /matches`
 - `GET /matches/:matchId`
 - `DELETE /matches/:matchId`
-
 - `POST /matches/:matchId/join`
 - `GET /matches/:matchId/participants`
 - `PATCH /matches/:matchId/participants/:participantId`
 - `GET /categories`
+- `DELETE /matches/:matchId/leave`
 
 ### POST /login
 
@@ -98,6 +98,13 @@ List of Available Endpoints:
 #### Request :
 
 - Method : GET
+
+Available Query Params
+
+| Name     | Description                   |
+|----------|-------------------------------|
+| category | Get all fields by category id |
+
 
 #### Response :
 
@@ -460,6 +467,26 @@ Available Query Params
     "updatedAt": "date"
   }
 ]
+```
+
+### DELETE /matches/:matchId/leave
+
+#### Description
+
+- Leave match based on given matchId
+
+#### Request :
+
+- Method : DELETE
+
+#### Response :
+
+200 - OK
+
+```json
+{
+  "message": "string"
+}
 ```
 
 ### Global Error
