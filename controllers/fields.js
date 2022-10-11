@@ -6,7 +6,7 @@ class FieldController {
       const fields = await Field.findAll({ include: Category });
       res.status(200).json(fields);
     } catch (error) {
-      next();
+      next(error);
     }
   }
 }

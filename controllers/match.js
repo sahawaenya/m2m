@@ -146,6 +146,8 @@ class MatchController {
           "currentCapacity",
           "duration",
           "description",
+          "status",
+          "UserId"
         ],
         include: [
           { model: Category, attributes: ["name", "image"] },
@@ -161,6 +163,9 @@ class MatchController {
               "closeHour",
             ],
           },
+          {
+            model : MatchDetail
+          }
         ],
       });
       res.status(200).json(match);
