@@ -93,6 +93,7 @@ class MatchController {
 
       if (status) {
         matches = await Match.findAll({
+          order: [['updatedAt', 'DESC']],
           include: [
             {
               model: MatchDetail,
@@ -125,6 +126,7 @@ class MatchController {
 
         whereClause.date = {[Op.gt]: new Date()};
         matches = await Match.findAll({
+          order: [['updatedAt', 'DESC']],
           where: whereClause,
           include: [{model: Category, attributes: ["id", "name", "image"]}, {
             model: User,
@@ -135,6 +137,7 @@ class MatchController {
 
       res.status(200).json(matches);
     } catch (e) {
+      console.log(e);
       next(e);
     }
   }
