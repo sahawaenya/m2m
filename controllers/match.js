@@ -40,6 +40,7 @@ class MatchController {
         FieldId,
         UserId: user,
       });
+      // console.log(newMatch.UserId, "<< ini userId create new match");
       // create match detail
       await MatchDetail.create({
         MatchId: newMatch.id,
@@ -154,7 +155,7 @@ class MatchController {
           "duration",
           "description",
           "status",
-          "UserId"
+          "UserId",
         ],
         include: [
           {model: Category, attributes: ["name", "image"]},
