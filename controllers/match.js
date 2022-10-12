@@ -6,7 +6,7 @@ const {
   MatchDetail,
   sequelize,
 } = require("../models");
-const { Op } = require("sequelize");
+const {Op} = require("sequelize");
 const CustomError = require("../helpers/customError");
 
 class MatchController {
@@ -49,7 +49,7 @@ class MatchController {
 
       res
         .status(201)
-        .json({ message: `success create new Match with id ${newMatch.id}` });
+        .json({message: `success create new Match with id ${newMatch.id}`});
     } catch (error) {
       next(error);
     }
@@ -59,7 +59,7 @@ class MatchController {
     try {
       const user = req.user.id;
 
-      const { matchId } = req.params;
+      const {matchId} = req.params;
       const matchToDelete = await Match.findByPk(matchId);
       if (!matchToDelete) {
         throw new CustomError("data not found", "not found", 404);
@@ -72,11 +72,11 @@ class MatchController {
         );
       }
       await Match.destroy({
-        where: { id: matchToDelete.id, UserId: user },
+        where: {id: matchToDelete.id, UserId: user},
       });
       res
         .status(200)
-        .json({ message: `Match with id ${matchId} successfully deleted` });
+        .json({message: `Match with id ${matchId} successfully deleted`});
     } catch (error) {
       next(error);
     }
@@ -84,7 +84,7 @@ class MatchController {
 
   static async getAllMatches(req, res, next) {
     try {
-      const { userId, status, location, category } = req.query;
+      const {userId, status, location, category} = req.query;
       let matches;
       if (Number(userId) && Number(userId) !== Number(req.user.id))
         throw new CustomError("Forbidden", "Forbidden", 403);
@@ -96,33 +96,40 @@ class MatchController {
           include: [
             {
               model: MatchDetail,
-              where: { status, UserId: userId },
+              where: {status, UserId: userId},
             },
             {
               model: Category,
               attributes: ["id", "name", "image"],
             },
+            {
+              model: User,
+              attributes: ["id", "name", "email", "bio"]
+            }
           ],
         });
       } else {
         if (userId) {
           whereClause.UserId = Number(userId);
         } else {
-          whereClause.capacity = { [Op.gt]: sequelize.col("currentCapacity") };
+          whereClause.capacity = {[Op.gt]: sequelize.col("currentCapacity")};
         }
 
         if (location) {
-          whereClause.location = { [Op.iLike]: `%${location}%` };
+          whereClause.location = {[Op.iLike]: `%${location}%`};
         }
 
         if (category) {
           whereClause.CategoryId = Number(category);
         }
 
-        whereClause.date = { [Op.gt]: new Date() };
+        whereClause.date = {[Op.gt]: new Date()};
         matches = await Match.findAll({
           where: whereClause,
-          include: [{ model: Category, attributes: ["id", "name", "image"] }],
+          include: [{model: Category, attributes: ["id", "name", "image"]}, {
+            model: User,
+            attributes: ["id", "name", "email", "bio"]
+          }],
         });
       }
 
@@ -134,7 +141,7 @@ class MatchController {
 
   static async getMatchesById(req, res, next) {
     try {
-      const { matchId } = req.params;
+      const {matchId} = req.params;
       const match = await Match.findByPk(matchId, {
         attributes: [
           "id",
@@ -150,7 +157,7 @@ class MatchController {
           "UserId"
         ],
         include: [
-          { model: Category, attributes: ["name", "image"] },
+          {model: Category, attributes: ["name", "image"]},
           {
             model: Field,
             attributes: [
@@ -164,7 +171,11 @@ class MatchController {
             ],
           },
           {
-            model : MatchDetail
+            model: User,
+            attributes: ["id", "name", "email", "bio"]
+          },
+          {
+            model: MatchDetail
           }
         ],
       });
@@ -176,12 +187,12 @@ class MatchController {
 
   static async joinMatches(req, res, next) {
     try {
-      const { matchId: MatchId } = req.params;
-      const { id: UserId } = req.user;
+      const {matchId: MatchId} = req.params;
+      const {id: UserId} = req.user;
       const status = 0;
 
       const [match, created] = await MatchDetail.findOrCreate({
-        where: { MatchId, UserId },
+        where: {MatchId, UserId},
         defaults: {
           MatchId,
           UserId,
@@ -204,8 +215,8 @@ class MatchController {
 
   static async showRequestParticipants(req, res, next) {
     try {
-      const { matchId: MatchId } = req.params;
-      const { id } = req.user;
+      const {matchId: MatchId} = req.params;
+      const {id} = req.user;
 
       const match = await Match.findByPk(MatchId);
       if (Number(match.UserId) !== Number(id))
@@ -231,12 +242,12 @@ class MatchController {
 
   static async changeRequestParticipantsStatus(req, res, next) {
     try {
-      const { status } = req.body;
-      const { matchId: MatchId, participantId: UserId } = req.params;
+      const {status} = req.body;
+      const {matchId: MatchId, participantId: UserId} = req.params;
       let message;
 
       await MatchDetail.update(
-        { status },
+        {status},
         {
           where: {
             MatchId,
@@ -247,8 +258,8 @@ class MatchController {
       if (Number(status) === 1) {
         message = `user status with id ${UserId} changed from pending to approved`;
         await Match.increment(
-          { currentCapacity: 1 },
-          { where: { id: MatchId } }
+          {currentCapacity: 1},
+          {where: {id: MatchId}}
         );
       } else {
         message = `user status with id ${UserId} changed from pending to rejected`;
@@ -263,23 +274,23 @@ class MatchController {
   }
 
   static async leaveMatch(req, res, next) {
-    try{
+    try {
       const {id} = req.user;
       const {matchId} = req.params;
 
       await MatchDetail.destroy({
         where: {
           UserId: id,
-          MatchId : matchId
+          MatchId: matchId
         }
       })
 
-      await Match.decrement({currentCapacity: 1}, {where: {id : matchId}});
+      await Match.decrement({currentCapacity: 1}, {where: {id: matchId}});
 
       res.status(200).json({
-        message : `user with id ${id} success left the match with id ${matchId}`
+        message: `user with id ${id} success left the match with id ${matchId}`
       });
-    }catch (e) {
+    } catch (e) {
       next(e);
     }
   }
