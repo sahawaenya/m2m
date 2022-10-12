@@ -8,7 +8,7 @@ class UserController {
     try {
       const { email, password } = req.body;
       const userLog = await User.findOne({ where: { email } });
-      console.log(userLog, "<<< ini userLog");
+      // console.log(userLog, "<<< ini userLog");
       if (!userLog) {
         throw new CustomError("invalid email/password", "Bad Request", 400);
       }
