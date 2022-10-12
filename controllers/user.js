@@ -8,6 +8,7 @@ class UserController {
     try {
       const { email, password } = req.body;
       const userLog = await User.findOne({ where: { email } });
+      console.log(userLog, "<<< ini userLog");
       if (!userLog) {
         throw new CustomError("invalid email/password", "Bad Request", 400);
       }
@@ -17,7 +18,9 @@ class UserController {
       }
       const payload = { id: userLog.id };
       const access_token = createToken(payload);
-      res.status(200).json({ access_token, id: userLog.id });
+      res
+        .status(200)
+        .json({ access_token, id: userLog.id, name: userLog.name });
     } catch (error) {
       next(error);
     }
