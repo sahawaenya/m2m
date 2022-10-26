@@ -14,11 +14,10 @@
     "dialect": "postgres"
   },
   "production": {
-    "use_env_variable": "DATABASE_URL",
-    "dialectOptions": {
-      "ssl": {
-        "rejectUnauthorized": false
-      }
-    }
+    "username": "u1726292_sayid",
+    "password": "sahawaenya27",
+    "database": "u1726292_m2m",
+    "host": "localhost",
+    "dialect": "mysqli"
   }
 }
